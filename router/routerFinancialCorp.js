@@ -8,5 +8,6 @@ router.post("/", tokenVerifier, controllerFinancialCorp.createFinancialCorp)
 router.get("/", controllerFinancialCorp.getFinancialCorp)
 router.put("/:id", tokenVerifier, controllerFinancialCorp.updateFinancialCorp)
 router.delete("/:id", tokenVerifier, controllerFinancialCorp.deleteFinancialCorp)
+router.get("/byid/:id", controllerFinancialCorp.getFinancialCorpById)
 
 module.exports = router;
