@@ -42,7 +42,7 @@ app.use("/api/year", routerYear);
 app.use("/api/financialcorp", routerFinancialCorp);
 
 //TEST CONNECTION TO DATABASE
-app.get('/', (req, res) => res.send('You Are connected to Mongo Database of Multicomerciels'))
+app.get('/', (req, res) => res.send('You Are connected to API Multicamiones'))
 
 const port = process.env.PORT || appConfig.port
 
