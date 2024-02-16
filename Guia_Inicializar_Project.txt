@@ -1,0 +1,151 @@
+************************************************************************************
+***********************CONSTRUCCION DE LA API EN NODE.js****************************
+************************************************************************************
+
+*********************CREACION DEL package.json**************************************
+1-Crear la carpeta (MANUALMENTE) donde vamos a inicializar el proyecto NODE.JS
+1- Ubicarnos dentro de la carpeta de forma manual o con comando de linea "cd "/nombre carpeta""
+1- npm init => Crea el package.json => Se diligencia la información requerida para que se cree la carpeta package
+
+*********************CREACION node_modules**************************************
+2- npm i express => Instalar el framework Express => Esto es un framework de desarrollo de node.js => 
+Debe de aparecer la carpeta node_modules en el árbol del proyecto.
+
+*********************CREACION CONEXION A BBDD /config**************************************
+3- Dentro del arbol del proyecto, creamos una carpeta llamada /config
+4- dentro de /config creamos un archivo llamado db.js
+5- Instalamos la dependencia mongoose, la cual es la ORM que entabla la comunicación entre la base de datos Mongo DB y el programa.
+    npm i mongoose
+6- Importamos la constante mongoose dentro de db.js
+    const mongoose = require("mongoose");
+7- Dentro de db.js invocamos la funcion mongoose.set() para settearla en "true"
+    mongoose.set('strictQuery', true);
+8- en el file db.js, Creamos la funcion para conectar la API con la BBDD mediante la URL de la BBDD de la 
+    cual vamos a consumir los datos
+    
+    const connectDB = async() => {
+    try{
+        //Atributos de conexion de MongoDB con Mongoose
+        const connection = await mongoose.connect(
+            "mongodb+srv://db_multicomerciales:Db_multicomerciales2023@cluster0.qocpxs5.mongodb.net/?retryWrites=true&w=majority", {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            });
+            const url = `${connection.connection.host}:${connection.connection.port}`;
+            console.log(`MongoDB Conectado en :${url}`);
+
+    }catch(error){
+        console.log(`error:${error.message}`);
+        process.exit(1);
+    }
+};
+
+module.exports = connectDB;
+
+******************CONEXION A LA BBDD DESDE EL ARCHIVO DE RUTAS LAS index.js ******************
+9- Ubicarse en el árbol del proyecto y crear un archivo llamado index.js
+
+10- Se debe crear importar el framework express mediante una const, dentro de index.js de la siguiente manera:
+    const express = require("express");
+
+11- En el archivo index.js, importamos la conexion a la BD mediante una const conectarDB:
+    const conectarDB = require("./config/db");
+
+********************************POLITICAS DE CORS*************************************
+12-Se deben descargar las políticas de CORS mediante la terminal de comando, para poder conectar el front con el back.
+    npm i cors
+
+12-Después se debe crear la constante CORS de la siguiente manera:
+    const cors = require("cors");
+
+13- creamos una constante llamada "app" que almacenara la funcion express():
+    const app = express();
+
+14- Para habilitar las expresiones .json, llamamos a la funcion app.use() del framework express:
+    app.use(express.json({extended: true})); 
+
+15- Hacemos el debido llamado del elemento "connectDB();" para conectar las rutas del POSTMAN a la BBDD:
+    connectDB();
+
+16- Habilitamos los CORS, mediante la funcion predeterminada app.use(cors()) y le insertamos como argumento
+    a la constante cors que fue previemente creada:
+    app.use(cors());
+
+17- Todas las rutas (Routes) que se creen, deben de incluirse en el index.js mediante el llamado const.
+POR EJEMPLO:
+    const usersRoutes = require("./routes/usersRoutes"); 
+    const productsRoutes = require("./routes/productsRoutes");
+    const authRoutes = require("./routes/authRoutes");
+    NOTA: TOAS ESTAS RUTAS SE IMPORTAN EN LA PARTE SUPERIOR DEL index.js
+    NOTA: PERO ESTO SE DEBE HACER DESPUES DE CREAR LOS FILES, O SEA, CUANDO ESTEN EXISTENTES.   
+
+18- Despues de esto viene la construccion de las rutas mediante la app.use():
+app.use("/api/usuarios", usuarioRoutes);//RUTA URL USUARIOS
+app.use("/api/auth", authRoutes);//RUTA URL AUTH
+app.use("/api/categorias", categoriaRoutes);//RUTA URL CATEGORIAS
+app.use("/api/productos", productoRoutes);//RUTA URL PRODUCTOS
+
+NOTA: usuarioRoutes, authRoutes, categoriaRoutes Y productoRoutes, SON LLAMADOS QUE SE HACEN A LAS FUNCIONES
+QUE SE ENCUENTRAN EN LA CARPETA "routes", donde se maneja la logica del CRUD.
+
+
+**************************NODE DEMON -D /PARA ACTUALIZAR EL SERVIDOR LOCAL**********************
+NODE DEMON ES UNA DEPENDENCIA QUE ACTUALIZA AUTOMATICAMENTE EL SERVIDOR, Y ESTA SOLO LA VAMOS A UTILIZAR 
+EN EL AMBIENTE DE DESARROLLO DEL PROYECTO, NO EN EL SERVIDOR
+
+19- Para instalar Node Demon, seguimos el siguiente comando:
+    npm i -D nodemon
+
+    NOTA: LA -D SIGNIFICA QUE SOLO SE UTILIZARA EN EL AMBIENTE DE DESARROLLO
+
+******************************LLAMADO AL PUERTO 4000**********************************
+20-     POR ULTIMO EN EL ARCHIVO index.js. Mediante la funcion app.listen() hacemos el debido llamado 
+    al puerto 4000 para comprobar que la conexion este trabajando correctamente:
+    
+    app.listen(4000, () => {
+        console.log("servidor corriendo en el puerto 4000");
+    });
+
+*************ULTIMO PASO ANTES DE INICIAR EL COMANDO 'npm run dev' **************************
+21- En el archivo package.json, en el JSON llamado script, se debe crear una variable llamada dev, de la siguiente manera:
+    - Borramos el json que esta por default {"test": "echo \"Error: no test specified\" && exit 1"}
+    - Sobre escribimos: {"dev": "nodemon index.js"}
+
+22- Para ejecutar el archivo index.js con express, desde node, se debe correr el siguiente comando:
+    npm run dev
+
+NOTA: DESPUES DE PROBAR QUE LA CONEXION CORRE CORRECTAMENTE POR PUERTO 4000, DESCONECTAMOS CON CTL+C Y CTL+C
+
+******************CREACION DE LAS CARPETAS REQUERIDAS PARA EL PROYECTO***************************************
+23- Dentro de la carpeta del proyecto (en el arbol del proyecto), Creamos las siguientes carpetas:
+
+-models => Contiene los modelos/tablas-modelos donde se crearan los objetos  
+En esta API, vamos a crear los modelos: User, Category, Product y Customer. 
+
+-controllers => Contiene la LOGICA para realizar las peticiones del CRUD para cada uno de los modelos/tablas-modelo que hayan sido creadas. 
+
+-routes => Contiene las rutas/url para realizar las peticiones del CRUD y las relaciona con su correspondiente 
+funcion "controller". Se debe de crear un archivo con todas las peticiones para cada uno de los modelos/tablas-modelo que hayan sido creadas  
+
+-middleware => Contiene un unico archivo llamado AuthMidd.js mediante el cual se verifica el token para autorizar al usuario a realizar funciones privadas.
+
+********************************************IMPORTANTE******************************************
+TODAS LAS RUTAS PRIMARIAS QUEDAN DENTRO DEL index.js DE LA SIGUIENTE MANERA:
+
+23- Se deben importar las rutas mediante un const desde la carpeta routes de la siguiente manera:
+EJEMPLO:
+    const usersRoutes = require("./routes/usersRoutes"); 
+    const productsRoutes = require("./routes/productsRoutes");
+    const authRoutes = require("./routes/authRoutes");
+
+24- Se designan las rutas mediante las cuales seran llamadas desde el POSTMAN de la siguiente manera: 
+    app.use("/api/users", usersRoutes);
+    app.use("/api/products", productsRoutes);
+    app.use("/api/auth", authRoutes);
+
+
+
+
+
+
+
