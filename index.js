@@ -23,7 +23,8 @@ const routerFinancialCorp = require('./router/routerFinancialCorp');
 
 
 //Middleware
-app.use(cors());
+const corsOption = { origin: 'http://localhost:3000'};
+app.use(cors(corsOption));
 app.use(morgan('dev'))//MUESTRA EN CONSOLA CADA QUE SE EJECUTE UN MICROSERVICIO
 app.use(express.json({extended: true}));//Para habilitar las expresiones .json y generar archivo
 app.use(bodyParser.urlencoded({ extended: false}));
