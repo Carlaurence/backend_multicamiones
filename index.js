@@ -30,16 +30,6 @@ app.use(express.json({extended: true}));//Para habilitar las expresiones .json y
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
- 
-    next();
-});
-
-
 //CREACION DE LAS RUTAS PRIMARIAS DE ENLACE A LA BBDD
 app.use("/api/product", routerProduct);//RUTA-URL PRIMARIA DE PRODUCTO EN LA BBDD
 app.use("/api/user", routerUser);
