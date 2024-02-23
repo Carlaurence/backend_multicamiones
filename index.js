@@ -31,7 +31,9 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 //CREACION DE LAS RUTAS PRIMARIAS DE ENLACE A LA BBDD
-app.use("/api/product", routerProduct);//RUTA-URL PRIMARIA DE PRODUCTO EN LA BBDD
+app.use("/api/product", (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+  }, routerProduct);//RUTA-URL PRIMARIA DE PRODUCTO EN LA BBDD
 app.use("/api/user", routerUser);
 app.use("/api/login", routerToken);
 app.use("/api/category", routerCategory);
