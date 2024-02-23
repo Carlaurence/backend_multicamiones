@@ -12,7 +12,7 @@ const fileUpload = require('express-fileupload')
 const uploadExpress = fileUpload({ useTempFiles : true, tempFileDir : './uploads'})
 
 //CONSTRUCCION DE LAS RUTAS SECUNDARIAS URL ASOCIADAS A LAS FUNCIONES DEL CONTROLLER, PARA HACER LAS PETICIONES 
-router.post("/:id", tokenVerifier, allowCors, uploadExpress, controllerProduct.createProduct);//:id REQUIERE EL ID DE LA CATEGORIA A LA QUE PERTENECE
+router.post("/:id", tokenVerifier, uploadExpress, controllerProduct.createProduct);//:id REQUIERE EL ID DE LA CATEGORIA A LA QUE PERTENECE
 router.post("/addimages/:id", tokenVerifier, uploadExpress, controllerProduct.addImages);//:id REQUIERE EL ID DEL PRODUCTO
 router.get("/", controllerProduct.getAllProducts);
 router.get("/:id", controllerProduct.getProductsByIdCategory);//PRODUCTOS POR CATEGORIA. EL /:id ES EL DELA CATEGORY QUE DESEAMOS CONSULTAR
