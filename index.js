@@ -23,17 +23,14 @@ const routerFinancialCorp = require('./router/routerFinancialCorp');
 
 
 //Middleware
-const corsOption = { origin: 'http://localhost:3000'};
-app.use(cors(corsOption));
+app.use(cors());
 app.use(morgan('dev'))//MUESTRA EN CONSOLA CADA QUE SE EJECUTE UN MICROSERVICIO
 app.use(express.json({extended: true}));//Para habilitar las expresiones .json y generar archivo
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 //CREACION DE LAS RUTAS PRIMARIAS DE ENLACE A LA BBDD
-app.use("/api/product", (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-  }, routerProduct);//RUTA-URL PRIMARIA DE PRODUCTO EN LA BBDD
+app.use("/api/product", routerProduct);//RUTA-URL PRIMARIA DE PRODUCTO EN LA BBDD
 app.use("/api/user", routerUser);
 app.use("/api/login", routerToken);
 app.use("/api/category", routerCategory);
