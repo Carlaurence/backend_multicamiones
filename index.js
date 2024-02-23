@@ -5,6 +5,7 @@ const cors = require("cors");//POLITICAS DE CORS
 const bodyParser = require('body-parser');
 const app = express();
 const morgan = require('morgan')//npm i morgan PARA VER EN CONSOLA CADA MICROSERVICIO
+const allowCors = require('./allowCors')
 
 connectionDB();
 
@@ -28,6 +29,16 @@ app.use(morgan('dev'))//MUESTRA EN CONSOLA CADA QUE SE EJECUTE UN MICROSERVICIO
 app.use(express.json({extended: true}));//Para habilitar las expresiones .json y generar archivo
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+ 
+    next();
+});
+
 
 //CREACION DE LAS RUTAS PRIMARIAS DE ENLACE A LA BBDD
 app.use("/api/product", routerProduct);//RUTA-URL PRIMARIA DE PRODUCTO EN LA BBDD
