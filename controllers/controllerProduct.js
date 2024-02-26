@@ -76,7 +76,7 @@ exports.createProduct = async (req, res) => {
         }
     } catch (error) {
         //NO SE ARMA EL JSON {msg: "mensaje"} PORQUE EN EL FRONT ESTOY CON AXIOS
-        res.status(200).json('Error de Try/Catch en el Backend')
+        res.status(200).json('Error de Try/Catch en el Backend: '+error)
     }
 }
 
