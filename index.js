@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 
 //CREACION DE LAS RUTAS PRIMARIAS DE ENLACE A LA BBDD
 app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'https://frontend-multicamiones.vercel.app');
+    res.header('Access-Control-Allow-Origin', 'https://frontend-multicamiones.vercel.app, http://localhost:3000');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
