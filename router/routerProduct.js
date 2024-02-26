@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();//ESTE ELELEMNTO LLAMA AL TIPO DE PETICION [get, post, put, delete]
 const controllerProduct = require('../controllers/controllerProduct');//CONEXION AL /CONTROLLER
 const tokenVerifier = require('../middleware/tokenVerifier');
-
-//MIDDLEWARE 
+/**MIDDLEWARE */
 //REQUERIDOS PARA PROCESAR INFORMACION QUE LLEGA EN FormData / multipart/form-data 
 //HABILITAN LOS REQ.FILES
 const fileUpload = require('express-fileupload')
