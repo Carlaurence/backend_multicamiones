@@ -23,7 +23,11 @@ const routerFinancialCorp = require('./router/routerFinancialCorp');
 
 //Middleware
 app.use(cors({
-    origin: ['https://frontend-multicamiones.vercel.app', 'http://localhost:3000'],
+    origin: ['https://frontend-multicamiones.vercel.app',
+    'https://frontend-multicamiones.vercel.app/create_product/:id', 
+    'http://localhost:3000',
+    'http://localhost:3000/create_product/:id'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
