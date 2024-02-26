@@ -8,7 +8,7 @@ const tokenVerifier = require('../middleware/tokenVerifier');
 //HABILITAN LOS REQ.FILES
 const fileUpload = require('express-fileupload')
 //PONEMOS LOS MIDDLEWARE EN UNA CONST PARA USAR SUS METODOS Y REQ.FILES
-const uploadExpress = fileUpload({ useTempFiles : true, tempFileDir : './uploads'})
+const uploadExpress = fileUpload({ useTempFiles : true, tempFileDir : process.env.TMPDIR})
 
 //CONSTRUCCION DE LAS RUTAS SECUNDARIAS URL ASOCIADAS A LAS FUNCIONES DEL CONTROLLER, PARA HACER LAS PETICIONES 
 router.post("/:id", tokenVerifier, uploadExpress, controllerProduct.createProduct);//:id REQUIERE EL ID DE LA CATEGORIA A LA QUE PERTENECE
