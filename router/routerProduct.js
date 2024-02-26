@@ -4,7 +4,6 @@ const controllerProduct = require('../controllers/controllerProduct');//CONEXION
 const tokenVerifier = require('../middleware/tokenVerifier');
 
 //MIDDLEWARE 
-const allowCors = require('../allowCors')
 //REQUERIDOS PARA PROCESAR INFORMACION QUE LLEGA EN FormData / multipart/form-data 
 //HABILITAN LOS REQ.FILES
 const fileUpload = require('express-fileupload')

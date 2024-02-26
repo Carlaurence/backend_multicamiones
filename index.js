@@ -5,7 +5,6 @@ const cors = require("cors");//POLITICAS DE CORS
 const bodyParser = require('body-parser');
 const app = express();
 const morgan = require('morgan')//npm i morgan PARA VER EN CONSOLA CADA MICROSERVICIO
-const allowCors = require('./allowCors')
 
 connectionDB();
 
