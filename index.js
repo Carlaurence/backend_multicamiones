@@ -29,7 +29,7 @@ app.use(cors({
     'http://localhost:3000/create_product/:id'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
+    credentials: 'true'
 }));
 app.use(morgan('dev'))//MUESTRA EN CONSOLA CADA QUE SE EJECUTE UN MICROSERVICIO
 app.use(express.json({extended: true}));//Para habilitar las expresiones .json y generar archivo
