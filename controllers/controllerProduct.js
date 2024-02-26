@@ -12,9 +12,7 @@ const fs = require('fs-extra');//PARA BORRAR FILES TEMPORALES
 exports.createProduct = async (req, res) => {
     const { id } = req.params;//CategoryID
     const { make, manufacturerId, model, year, odometer, engineManufacturer, gvwr, cargoBodyType, length, width, height, price } = req.body;
-    res.setHeader('Access-Control-Allow-Origin', 'https://frontend-multicamiones.vercel.app, http://localhost:3000');
-    res.setHeader('Access-Control-Allow-Methods', 'POST');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
     try {
         const category = await Category.findById(id)
 
