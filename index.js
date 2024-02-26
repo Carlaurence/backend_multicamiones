@@ -21,9 +21,12 @@ const routerYear = require('./router/routerYear');
 const routerFinancialCorp = require('./router/routerFinancialCorp');
 
 
-
 //Middleware
-app.use(cors());
+app.use(cors({
+    origin: ['https://frontend-multicamiones.vercel.app', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(morgan('dev'))//MUESTRA EN CONSOLA CADA QUE SE EJECUTE UN MICROSERVICIO
 app.use(express.json({extended: true}));//Para habilitar las expresiones .json y generar archivo
 app.use(bodyParser.urlencoded({ extended: false}));
