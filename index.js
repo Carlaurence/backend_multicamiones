@@ -21,7 +21,7 @@ const routerYear = require('./router/routerYear');
 const routerFinancialCorp = require('./router/routerFinancialCorp');
 
 
-//Middleware
+//Middleware/
 app.use(cors({
     origin: ['https://frontend-multicamiones.vercel.app',
     'https://frontend-multicamiones.vercel.app/create_product/:id', 
