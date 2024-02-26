@@ -22,6 +22,13 @@ const routerFinancialCorp = require('./router/routerFinancialCorp');
 
 
 //Middleware/
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'https://frontend-multicamiones.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 app.use(cors({
     origin: ['https://frontend-multicamiones.vercel.app',
     'https://frontend-multicamiones.vercel.app/create_product/:id', 
@@ -29,7 +36,7 @@ app.use(cors({
     'http://localhost:3000/create_product/:id'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: 'true'
+    credentials: true
 }));
 app.use(morgan('dev'))//MUESTRA EN CONSOLA CADA QUE SE EJECUTE UN MICROSERVICIO
 app.use(express.json({extended: true}));//Para habilitar las expresiones .json y generar archivo
