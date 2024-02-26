@@ -4,7 +4,7 @@ const controllerProduct = require('../controllers/controllerProduct');//CONEXION
 const tokenVerifier = require('../middleware/tokenVerifier');
 /**MIDDLEWARE */
 //REQUERIDOS PARA PROCESAR INFORMACION QUE LLEGA EN FormData / multipart/form-data 
-//HABILITAN LOS REQ.FILES
+//HABILITAN LOS REQ.FILES/
 const fileUpload = require('express-fileupload')
 //PONEMOS LOS MIDDLEWARE EN UNA CONST PARA USAR SUS METODOS Y REQ.FILES
 const uploadExpress = fileUpload({ useTempFiles : true, tempFileDir : process.env.VERCEL_TMPDIR})
