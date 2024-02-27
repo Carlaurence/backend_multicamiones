@@ -6,7 +6,7 @@ const tokenVerifier = require('../middleware/tokenVerifier');
 //HABILITAN LOS REQ.FILES
 const fileUpload = require('express-fileupload')
 //PONEMOS LOS MIDDLEWARE EN UNA CONST PARA USAR SUS METODOS Y REQ.FILES
-const uploadExpress = fileUpload({ useTempFiles : true, tempFileDir : './uploads'})
+const uploadExpress = fileUpload({ useTempFiles : true, tempFileDir : process.env.VERCEL_TMPDIR})
 
 router.post("/", tokenVerifier, uploadExpress, controllerAdvertising.createAdvertising);
 router.get("/", controllerAdvertising.getAllAdvertisements);
